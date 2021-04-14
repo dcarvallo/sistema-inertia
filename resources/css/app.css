@@ -1,0 +1,23 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+tbody{
+  @apply text-gray-700 text-sm font-light bg-white p-1
+}
+tbody tr{
+  @apply h-10 border-b border-gray-300 hover:bg-gray-200 
+}
+tbody tr td{
+  @apply p-2 whitespace-nowrap 
+}
+
+h1 {
+  @apply text-2xl;
+}
+h2 {
+  @apply text-xl;
+}
+h3 {
+  @apply text-lg;
+} 
