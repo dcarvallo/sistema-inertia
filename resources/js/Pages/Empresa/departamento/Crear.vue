@@ -12,7 +12,7 @@
             <textarea type="text" class="fappearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-2 px-4 mb-2" name="descripcion" v-model="form.descripcion" placeholder="Descripción"></textarea>
             <label class="bg-red-100 border-l-4 border-red-500 text-red-700 text-xs my-2 p-2" v-if="$page.props.errors.descripcion" >{{$page.props.errors.descripcion}}</label>
           </div>
-          <div class="form-group">
+          <div class="md:w-1/2">
             <label class="block tracking-wide text-grey-darker font-bold mb-2">Encargado del departamento</label>
            
             <dropdown 
@@ -27,7 +27,7 @@
             </dropdown>
             
           </div>
-          <div class="form-group">
+          <div class="md:w-1/2">
             <label class="block tracking-wide text-grey-darker font-bold mb-2" for="ubicacion_id">Ubicacion*</label>
             
             <dropdown 

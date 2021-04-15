@@ -17,7 +17,7 @@
             <input type="number" class="fappearance-none block bg-grey-lighter text-grey-darker border border-red rounded py-2 px-4 mb-2 col-md-6" name="nivel" v-model="form.nivel" placeholder="Ejem. 3"/>
             <span class="bg-red-100 border-l-4 border-red-500 text-red-700 text-xs my-2 p-2" v-if="$page.props.errors.nivel" >{{$page.props.errors.nivel}}</span>
           </div>
-          <div class="form-group">
+          <div class="md:w-1/2">
             <label class="block tracking-wide text-grey-darker font-bold mb-2" for="dependiente">Depende de:*</label>
             
             <dropdown 
@@ -32,7 +32,7 @@
             </dropdown>
             <span class="bg-red-100 border-l-4 border-red-500 text-red-700 text-xs my-2 p-2" v-if="$page.props.errors.dependiente" >{{$page.props.errors.dependiente}}</span>
           </div>
-          <div class="form-group">
+          <div class="md:w-1/2">
             <label class="block tracking-wide text-grey-darker font-bold mb-2" for="tipo">Tipo*</label>
             <select class="fblock bg-white border border-gray-400 hover:border-gray-500  mb-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline" v-model="form.tipo">
               <option value="Titular" selected>Titular</option>

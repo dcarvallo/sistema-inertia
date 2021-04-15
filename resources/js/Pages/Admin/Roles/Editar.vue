@@ -32,24 +32,24 @@
         </div>
       </div>
       
-      <div class="bg-white">
-        <div class=" md:flex">
+      <div class="mt-3 rounded bg-white md:flex">
+        <div class="w-full md:w-2/3 xl:w-4/5 border-r-2 p-2">
         <div class="text-center font-bold">
           <h5>Permisos</h5>
         </div>
-        <div class="w-full md:w-2/3 xl:w-4/5 border-r-2 p-2">
-          <div class="col-md-9">
-            <label v-if="expand" @click="expand = !expand" :style="{cursor: 'pointer'}" @click.prevent="expandirTodos">Contraer todos</label>
-            <label v-else @click="expand = !expand" :style="{cursor: 'pointer'}" @click.prevent="expandirTodos">Expandir todos</label>
+            <div class="my-2">
+              <label class="bg-blue-700 text-white p-2 border border-gray-500 rounded" v-if="expand" @click="expand = !expand" :style="{cursor: 'pointer'}" @click.prevent="expandirTodos">Contraer todos</label>
+              <label class="bg-blue-700 text-white p-2 border border-gray-500 rounded" v-else @click="expand = !expand" :style="{cursor: 'pointer'}" @click.prevent="expandirTodos">Expandir todos</label>
+            </div>
             <div class="grid grid-cols-2 xl:grid-cols-4 2xl:grid-cols-6 gap-4">
 
-              <div class="col-md-2 my-2" v-for="(categoria,index) in permisos2" :key="index" > 
-                <label class="bg-cyan w-100 rounded px-1" @click.prevent="funcion(index)" :style="{cursor: 'pointer'}">
-                  <i v-if="nombres.includes(index)" class="far fa-minus-square"></i>
-                  <i v-else class="far fa-plus-square"></i>
+              <div class="my-2" v-for="(categoria,index) in permisos2" :key="index" > 
+                <label class="bg-gray-700 text-white w-100 rounded p-1" @click.prevent="funcion(index)" :style="{cursor: 'pointer'}">
+                  <i v-if="nombres.includes(index)" class="pi pi-minus-circle"></i>
+                  <i v-else class="pi pi-plus-circle"></i>
                   <span class="bold">  {{index}} </span>
                 </label>
-                <div v-for="elemento in categoria" :key="elemento.id"> 
+                <div class="mt-1" v-for="elemento in categoria" :key="elemento.id"> 
                   <transition name="fade">
                     <label v-if="nombres.includes(elemento.category)"  :style="{cursor: 'pointer'}">
                       <input type="checkbox" :id="elemento.id" :value="elemento.name" v-model="perseleccionaados">
@@ -60,7 +60,6 @@
               </div> 
             </div>
           </div>
-          </div>
           <div class="w-full md:w-1/3 xl:w-1/5 p-2">
             <div class="text-center font-bold"> Permisos seleccionados</div>
               <ul>
@@ -70,7 +69,6 @@
               </ul>
           </div>
         </div>
-      </div>
     
       <div class="text-right">
         <button type="submit" class="select-none mt-5 bg-blue-600 text-white rounded p-2 hover:bg-blue-800" >Guardar</button>

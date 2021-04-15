@@ -32,7 +32,7 @@
             </dropdown>
             <span class="bg-red-100 border-l-4 border-red-500 text-red-700 text-xs my-2 p-2" v-if="$page.props.errors.dependiente" >{{$page.props.errors.dependiente}}</span>
           </div>
-          <div class="form-group">
+          <div class="md:w-1/2">
             <label class="block tracking-wide text-grey-darker font-bold mb-2" for="tipo">Tipo*</label>
             <select class="form-control col-md-6" v-model="form.tipo">
               <option value="Titular" selected>Titular</option>
@@ -41,7 +41,7 @@
             </select>
             <span class="bg-red-100 border-l-4 border-red-500 text-red-700 text-xs my-2 p-2" v-if="$page.props.errors.tipo" >{{$page.props.errors.tipo}}</span>
           </div>
-          <div class="form-group">
+          <div class="md:w-1/2">
             <label class="block tracking-wide text-grey-darker font-bold mb-2" for="ubicacion_id">Area*</label>
            
 
