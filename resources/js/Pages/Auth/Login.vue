@@ -30,6 +30,7 @@
                     Ingresar
                 </button>
             </div>
+            <p class="text-white">admin - admin</p>
         </form>
     </div>
   </div>
