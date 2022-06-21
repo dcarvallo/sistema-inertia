@@ -9,12 +9,12 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-        <link rel="stylesheet" href="{{ asset('/css/css.css') }}">
+        <link rel="stylesheet" href="{{ secure_asset('/css/css.css') }}">
         
         <!-- Scripts -->
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
-        <script src="{{ asset('js/alpine.min.js') }}"></script>
+        <script src="{{ secure_asset('js/alpine.min.js') }}"></script>
     </head>
     <body class="font-sans antialiased">
         @inertia
