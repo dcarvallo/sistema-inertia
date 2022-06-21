@@ -29,7 +29,7 @@
               <legend class="w-auto my-0" ><span class="my-0 text-sm"> Buscar por</span></legend>
               <div class="flex items-center">
                   <div class="pr-1">
-                  <input class="bg-white h-8 px-3 pr-10 rounded-full text-sm focus:outline-none w-32 md:w-64 " type="text" v-model="tableData.search" placeholder="Buscar"
+                  <input class="bg-white h-8 px-3 pr-10 rounded-md text-sm focus:outline-none w-32 md:w-64 " type="text" v-model="tableData.search" placeholder="Buscar"
                     @keyup.enter="getDepartamentos()">
                   </div>
                 <div class="pl-1">
@@ -51,20 +51,20 @@
                     <td style="width: 40%" class="text-justify">{{departamento.descripcion}}</td>
                     <td style="width: 20%" >{{departamento.encargado}}</td>
                     <td style="width: 20%" >{{departamento.ubicacion.nombre}}</td>
-                    <td v-if="this.$page.props.permisos.includes('Ver-cargos')" class="text-center">
-                      <div class="flex justify-center">
-                        <a class="bg-blue-600 rounded p-2 text-white" :href="'/departamentos/'+departamento.id"><i class="pi pi-eye"></i></a>
-                      </div>
+                    <td  class="text-center">
+                      <!-- <div class="flex justify-center"> -->
+                        <a v-if="this.$page.props.permisos.includes('Ver-cargos')" class="bg-blue-500 rounded p-2 mr-2 text-white" :href="'/departamentos/'+departamento.id"><i class="pi pi-eye"></i></a>
+                      <!-- </div>
                     </td>
-                    <td v-if="this.$page.props.permisos.includes('Editar-cargos')" class="text-center">
-                     <div class="flex justify-center">
-                        <a class="bg-yellow-300 p-2 rounded"  :href="'/departamentos/'+departamento.id+'/edit'"><i class="pi pi-pencil"></i></a>
-                     </div>
+                    <td  class="text-center"> -->
+                     <!-- <div class="flex justify-center"> -->
+                        <a v-if="this.$page.props.permisos.includes('Editar-cargos')" class="bg-yellow-300 mr-2 text-white p-2 rounded"  :href="`/departamentos/${departamento.id}/edit`"><i class="pi pi-pencil"></i></a>
+                     <!-- </div>
                     </td>
-                    <td v-if="this.$page.props.permisos.includes('Eliminar-cargos')" class="text-center">
-                     <div class="flex justify-center">
-                        <a class="cursor-pointer  text-white bg-red-600 p-2 rounded my-1" @click="borrar(departamento.id)"><i class="pi pi-trash"></i></a>
-                     </div>
+                    <td  class="text-center"> -->
+                     <!-- <div class="flex justify-center"> -->
+                        <a v-if="this.$page.props.permisos.includes('Eliminar-cargos')" class="cursor-pointer  text-white bg-red-500 p-2 rounded my-1" @click="borrar(departamento.id)"><i class="pi pi-trash"></i></a>
+                     <!-- </div> -->
                     </td>
                 </tr>
             </tbody>
@@ -98,20 +98,13 @@ export default {
       { label: "Descripcion", name: "descripcion" },
       { label: "Encargado", name: "encargado" },
       { label: "Ubicacion", name: "ubicacion_id" },
+      { label: "Acciones", name: "acciones" },
     ];
     var columnasPrincipales = columns.length - 1;
     columns.forEach((column) => {
       sortOrders[column.name] = -1;
     });
-    if (this.$page.props.permisos.includes('Ver-cargos')) {
-      columns.push({ label: "Ver", name: "ver" });
-    }
-    if (this.$page.props.permisos.includes('Editar-cargos')) {
-      columns.push({ label: "Editar", name: "editar" });
-    }
-    if (this.$page.props.permisos.includes('Eliminar-cargos')) {
-      columns.push({ label: "Eliminar", name: "eliminar" });
-    }
+   
     return {
       departamentos: [],
       exportar: 'excel',

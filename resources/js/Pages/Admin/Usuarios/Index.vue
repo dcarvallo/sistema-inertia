@@ -34,7 +34,7 @@
                   <select class="block w-full bg-white border border-gray-400 hover:border-gray-500 pr-4 rounded shadow leading-tight focus:outline-none focus:shadow-outline" v-model="tableData.searchColumn">
                     <option value="name">Nombre Completo</option>
                     <option value="username">Nombre de usuario</option>
-                    <option value="email">Email</option>
+                    <option value="email">Email2</option>
                   </select>
                 </div>
               </div>
@@ -59,20 +59,13 @@
                   </ul>
                 </td>
                 <td v-else> - </td>
-                <td style="width: 10%" v-if="$page.props.permisos.includes('Ver-usuarios')" >
-                  <div class="flex justify-center">
-                    <a class="bg-blue-600 rounded p-2 text-white"  :href="'/users/'+usuario.id"><i class="pi pi-eye"></i></a>
-                  </div>
-                </td>
-                <td v-if="$page.props.permisos.includes('Editar-usuarios')" >
-                  <div class="flex justify-center">
-                    <a class="bg-yellow-300 p-2 rounded" :href="'/users/'+usuario.id+'/edit'"><i class="pi pi-pencil"></i></a>
-                  </div>
-                </td>
-                <td v-if="$page.props.permisos.includes('Eliminar-usuarios')" >
-                  <div class="flex justify-center">
-                    <a class="cursor-pointer  text-white bg-red-600 p-2 rounded my-1" :id="usuario.id" @click="borrar(usuario.id)"><i class="pi pi-trash"></i></a>
-                  </div>
+                <td style="width: 10%" class="gap-2" >
+                    <a v-if="$page.props.permisos.includes('Ver-usuarios')" class="bg-blue-500 rounded p-2 text-white mr-2"  :href="'/users/'+usuario.id"><i class="pi pi-eye"></i></a>
+               
+                    <a v-if="$page.props.permisos.includes('Editar-usuarios')" class="bg-yellow-300 p-2 rounded mr-2" :href="'/users/'+usuario.id+'/edit'"><i class="pi pi-pencil"></i></a>
+                  
+                    <a v-if="$page.props.permisos.includes('Eliminar-usuarios')" class="cursor-pointer  text-white bg-red-500 p-2 rounded my-1" :id="usuario.id" @click="borrar(usuario.id)"><i class="pi pi-trash"></i></a>
+                 
                 </td>
               </tr>
             </tbody>
@@ -108,22 +101,14 @@ export default {
             {label: 'Nombre Completo', name: 'name' }, 
             {label: 'Nombre de usuario', name: 'username'},
             {label: 'Email', name: 'email'},
-            {label: 'Activo', name: 'activo'},            
+            {label: 'Activo', name: 'activo'},                
         ];
         const columnasPrincipales = columns.length - 1 ;
           columns.forEach((column) => {
              sortOrders[column.name] = -1;
           });
           columns.push({label: 'Rol', name: 'rol'});
-        if(this.$page.props.permisos.includes('Ver-usuarios')){
-          columns.push({label: 'Ver', name: 'ver'});
-        }
-        if(this.$page.props.permisos.includes('Editar-usuarios')){
-          columns.push({label: 'Editar', name: 'editar'});
-        }
-        if(this.$page.props.permisos.includes('Eliminar-usuarios')){
-          columns.push({label: 'Eliminar', name: 'eliminar'});
-        }
+          columns.push({label: 'Acciones', name: 'acciones'});
       
         return {
             usuarios: [],

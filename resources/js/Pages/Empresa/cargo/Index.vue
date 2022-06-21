@@ -28,7 +28,7 @@
                   <legend class="w-auto my-0" ><span class="my-0 text-sm"> Buscar por</span></legend>
                   <div class="flex items-center">
                     <div class="pr-1">
-                      <input class="bg-white h-8 px-3 pr-10 rounded-full text-sm focus:outline-none w-32 md:w-64 " type="text" v-model="tableData.search" placeholder="Buscar"
+                      <input class="bg-white h-8 px-3 pr-10 rounded-md text-sm focus:outline-none w-32 md:w-64 " type="text" v-model="tableData.search" placeholder="Buscar"
                         @keyup.enter="getCargos()">
                     </div>
                     <div class="pl-1">
@@ -49,20 +49,10 @@
                     <td style="width: 30%" >{{cargo.nombre}}</td>
                     <td style="width: 50%" class="text-justify">{{cargo.descripcion}}</td>
                     <td style="width: 20%" >{{cargo.area.nombre}}</td>
-                    <td v-if="$page.props.permisos.includes('Ver-cargos')" class="text-center">
-                      <div class="flex justify-center">
-                        <a class="bg-blue-600 rounded p-2 text-white" :href="'/cargos/'+cargo.id"><i class="pi pi-eye"></i></a>
-                      </div>
-                    </td>
-                    <td v-if="$page.props.permisos.includes('Editar-cargos')" class="text-center">
-                      <div class="flex justify-center">
-                        <a class="bg-yellow-300 p-2 rounded" :href="'/cargos/'+cargo.id+'/edit'"><i class="pi pi-pencil"></i></a>
-                      </div>
-                    </td>
-                    <td v-if="$page.props.permisos.includes('Eliminar-cargos')" class="text-center">
-                      <div class="flex justify-center">
-                        <a class="cursor-pointer text-white bg-red-600 p-2 rounded my-1" @click="borrar(cargo.id)"><i class="pi pi-trash"></i></a>
-                      </div>
+                    <td  class="text-center">
+                      <a v-if="$page.props.permisos.includes('Ver-cargos')" class="bg-blue-500 mr-2 rounded p-2 text-white" :href="'/cargos/'+cargo.id"><i class="pi pi-eye"></i></a>
+                      <a v-if="$page.props.permisos.includes('Editar-cargos')" class="bg-yellow-300 mr-2 p-2 text-white rounded" :href="`/cargos/${cargo.id}/edit`"><i class="pi pi-pencil"></i></a>
+                      <a v-if="$page.props.permisos.includes('Eliminar-cargos')" class="cursor-pointer text-white bg-red-500 p-2 rounded my-1" @click="borrar(cargo.id)"><i class="pi pi-trash"></i></a>
                     </td>
                 </tr>
             </tbody>
@@ -96,21 +86,14 @@ export default {
       let columns = [
         {label: 'Nombre', name: 'nombre' },
         {label: 'Descripcion', name: 'descripcion'},
-        {label: 'Area', name: 'area_id'}
+        {label: 'Area', name: 'area_id'},
+        {label: 'Acciones', name: 'acciones'},
       ];
       var columnasPrincipales = columns.length - 1 ;
         columns.forEach((column) => {
           sortOrders[column.name] = -1;
         });
-      if(this.$page.props.permisos.includes('Crear-cargos')){
-        columns.push({label: 'Ver', name: 'ver'});
-      }
-      if(this.$page.props.permisos.includes('Editar-cargos')){
-        columns.push({label: 'Editar', name: 'editar'});
-      }
-      if(this.$page.props.permisos.includes('Eliminar-cargos')){
-        columns.push({label: 'Eliminar', name: 'eliminar'});
-      }
+      
       return {
         exportar: "excel",
         cargos: [],
@@ -178,7 +161,7 @@ export default {
                 })
               },
               reject: () => {
-                  //callback to execute when user rejects the action
+
               }
             });
           },

@@ -20,7 +20,6 @@ use Session;
 use Auth;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
-
 class UserController extends Controller
 {
 
@@ -177,41 +176,42 @@ class UserController extends Controller
     return Inertia::render('Admin/Usuarios/Editar', compact('usuario', 'rolesusuario', 'roles', 'titulo', 'breadcrumb'));
   }
 
-  public function update(UpdateUsuario $request, $id)
+  public function update(Request $request, $id)
   {
 
     if (!Auth::user()->can('Editar-usuarios') || Auth::user()->hasRole('Inactivo') || !$request->ajax()) abort(403);
-
     try {
       $usuario = User::find($id);
-      $usuario->nombres = $request->nombres;
-      $usuario->apellidos = $request->apellidos;
-      $usuario->username = $request->username;
-      $usuario->name = $request->nombres . ' ' . $request->apellidos;
-
-      if ($request->activo == 0) {
+      $usuario->nombres = $request->data["nombres"];
+      $usuario->apellidos = $request->data["apellidos"];
+      $usuario->username = $request->data["username"];
+      $usuario->name = $request->data["nombres"] . ' ' . $request->data["apellidos"];
+      
+      
+      if ($request->data["activo"] == 0) {
         $usuario->assignRole('Inactivo');
       } else
-        $usuario->removeRole('Inactivo');
-
-      $usuario->activo = $request->activo;
+      $usuario->removeRole('Inactivo');
+      
+      // dd(  $request->data['imagen']);
+      $usuario->activo = $request->data["activo"];
       cache()->tags('permisos')->flush();
       
-      if ($request->imagen) {
-        //laravel intervention
-
-        $ext = $request->imagen->getClientOriginalExtension();
+      if (isset($request->data["imagen"])) {
+        
+        $ext = $request->data["imagen"]->getClientOriginalExtension();
+        // dd($ext);
         $fileName = $usuario->username .'-'. Str::random(5) . '.' . $ext;
         //original
-        $request->imagen->storeAs('usuarios/originales', $fileName);
+        $request->data["imagen"]->storeAs('usuarios/originales', $fileName);
         //modificado
-        $imagenmod = Image::make($request->imagen)->fit(300, 300);
+        $imagenmod = Image::make($request->data["imagen"])->fit(300, 300);
         Storage::put('usuarios/thumbnail/' . $fileName, $imagenmod->encode());
-
+        
         $usuario->fotografia = 'usuarios/thumbnail/' . $fileName;
       }
       $usuario->save();
-
+      
       $bitacora = new Bitacora();
       $bitacora->mensaje = 'Se editó el usuario '. $usuario->username;
       $bitacora->registro_id = $usuario->id;
@@ -226,6 +226,7 @@ class UserController extends Controller
       );
       return back()->with('mensaje', $toast);
     } catch (\Throwable $th) {
+      dd($th);
       $toast = array(
         'title'   => 'Usuario no modificado: ',
         'message' => 'error',

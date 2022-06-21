@@ -70,20 +70,20 @@
     </TabPanel>
 
       <TabPanel header='Roles'>
-      <div class="p-3">
-        <label v-if="expand" @click="expand = !expand" :style="{cursor: 'pointer'}" @click.prevent="expandirTodos">Contraer todos</label>
-        <label v-else @click="expand = !expand" :style="{cursor: 'pointer'}" @click.prevent="expandirTodos">Expandir todos</label>
+      <div class="p-1">
+        <label v-if="expand" @click="expand = !expand" class="bg-blue-700 text-white p-2 border border-gray-500 rounded cursor-pointer" @click.prevent="expandirTodos">Contraer todos</label>
+        <label v-else @click="expand = !expand" class="bg-blue-700 text-white p-2 border border-gray-500 rounded cursor-pointer" @click.prevent="expandirTodos">Expandir todos</label>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6">
-          <div class="my-2" v-for="(categoria,index) in roles" :key="index">
-            <label class="bg-cyan w-100 rounded px-1" @click.prevent="funcion(index)" :style="{cursor: 'pointer'}">
-              <i v-if="nombres.includes(index)" class="far fa-minus-square"></i>
-              <i v-else class="far fa-plus-square"></i>
-              <span class="bold">  {{index}} </span>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mt-5">
+          <div class="my-2 border rounded-sm" v-for="(categoria,index) in roles" :key="index">
+            <label class="bg-gray-700 text-white w-full rounded p-1 cursor-pointer" @click.prevent="funcion(index)">
+              <i v-if="nombres.includes(index)" class="pi pi-minus-circle"></i>
+              <i v-else class="pi pi-plus-circle"></i>
+              <span class="bold ml-1"> {{index}} </span>
             </label>
               <div v-for="elemento in categoria" :key="elemento.id"> 
                 <transition name="fade">
-                  <label v-if="nombres.includes(elemento.category)"  :style="{cursor: 'pointer'}">
+                  <label v-if="nombres.includes(elemento.category)" class="cursor-pointer">
                     <input type="checkbox" :id="elemento.id" :value="elemento.name" v-model="rol.guard_name">
                     <span>{{elemento.name}}</span> 
                   </label>
@@ -171,8 +171,10 @@ export default {
       }
     },
     onFileChange(e) {
-      this.usuario.imagen = e.target.files;
-      this.enlace = URL.createObjectURL(this.usuario.imagen );
+
+      this.usuario.imagen = e.target.files[0];
+      this.enlace = URL.createObjectURL(e.target.files[0]);
+      
     },
     crearusuario()
     {

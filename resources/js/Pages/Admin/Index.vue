@@ -49,7 +49,6 @@
                   <th>Producto</th>
                   <th>Precio</th>
                   <th>Venta</th>
-                  <th>Mas</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -66,11 +65,6 @@
                     </small>
                     12,000 Sold
                   </td>
-                  <td>
-                    <a href="#" class="text-muted">
-                      <i class="pi pi-search"></i>
-                    </a>
-                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -84,11 +78,6 @@
                       0.5%
                     </small>
                     123,234 Sold
-                  </td>
-                  <td>
-                    <a href="#" class="text-muted">
-                      <i class="pi pi-search"></i>
-                    </a>
                   </td>
                 </tr>
                 <tr>
@@ -104,11 +93,6 @@
                     </small>
                     198 Sold
                   </td>
-                  <td>
-                    <a href="#" class="text-muted">
-                      <i class="pi pi-search"></i>
-                    </a>
-                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -122,11 +106,6 @@
                       63%
                     </small>
                     87 Sold
-                  </td>
-                  <td>
-                    <a href="#" class="text-muted">
-                      <i class="pi pi-search"></i>
-                    </a>
                   </td>
                 </tr>
                 </tbody>

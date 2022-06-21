@@ -78,7 +78,7 @@
 
         <div class="col-md-12">
             <div>
-              <h5>ResTabPanellecer password</h5>
+              <h5>Restablecer password</h5>
             </div>
             <div>
               <form @submit.prevent="updatepass">
@@ -90,7 +90,7 @@
                   <template #footer="sp">
                     {{sp.level}}
                     <hr />
-                    <p class="p-mt-2">Políticas</p>
+                    <p class="my-2 font-bold">Políticas</p>
                     <ul class="p-pl-2 p-ml-2 p-mt-0" style="line-height: 1.5">
                         <li>Al menos una minúscula</li>
                         <li>Al menos una mayúscula</li>
@@ -112,21 +112,19 @@
   </TabPanel>
 
   <TabPanel header='Roles'>
-      <div class="p-3">
+      <div class="p-1">
         <form @submit.prevent="updaterol">
-        <label v-if="expand" @click="expand = !expand" :style="{cursor: 'pointer'}" @click.prevent="expandirTodos">Contraer todos</label>
-        <label v-else @click="expand = !expand" :style="{cursor: 'pointer'}" @click.prevent="expandirTodos">Expandir todos</label>
-
-        <div class="row">
+        <label class="bg-blue-700 text-white p-2 border border-gray-500 rounded cursor-pointer " @click.prevent="expandirTodos"> {{expand ? 'Contraer todos' : 'Expandir todos'}}</label>
+        
+        <div class="row mt-4">
           <div class="col-md-2 my-2" v-for="(categoria,index) in roles" :key="index">
-              <label class="bg-cyan w-100 rounded px-1" @click.prevent="funcion(index)" :style="{cursor: 'pointer'}">
-                <i v-if="nombres.includes(index)" class="far fa-minus-square"></i>
-                <i v-else class="far fa-plus-square"></i>
-                <span class="bold">  {{index}} </span>
+              <label class="bg-gray-700 text-white w-full rounded p-1 cursor-pointer" @click.prevent="funcion(index)">
+                <i :class=" nombres.includes(index) ? 'pi pi-minus-circle' : 'pi pi-plus-circle'"></i>
+                <span class="bold ml-1">  {{index}} </span>
               </label>
                 <div v-for="elemento in categoria" :key="elemento.id"> 
                   <transition name="fade">
-                    <label v-if="nombres.includes(elemento.category)"  :style="{cursor: 'pointer'}">
+                    <label v-if="nombres.includes(elemento.category)" class="cursor-pointer">
                       <input type="checkbox" :id="elemento.id" :value="elemento.name" v-model="rolesSeleccionados">
                       <span>{{elemento.name}}</span> 
                       </label>
@@ -158,7 +156,7 @@ export default {
     return{
       botonmail: 'Guardar',
       botonpass: 'Guardar',
-      expand: true,
+      expand: false,
       usuario_pass: this.usuario.password,
       nombres: [],
       test:[],
@@ -180,6 +178,7 @@ export default {
   methods:{
     expandirTodos()
     {
+      this.expand = !this.expand;
       if(this.expand)
       {
         this.nombres = this.test;
@@ -201,8 +200,8 @@ export default {
       }
     },
     onFileChange(e) {
-      this.form.imagen = e.target.files;
-      this.enlace = URL.createObjectURL(this.form.imagen );
+      this.form.imagen = e.target.files[0];
+      this.enlace = URL.createObjectURL(e.target.files[0] );
     },
     updateemail() {
         this.$inertia.put('/users/um/'+this.usuario.id, { email: this.usuario.email }, {
@@ -212,6 +211,7 @@ export default {
             this.$toast.add({severity:datos.type, summary: datos.title, detail:datos.message, life:5000});
           }
         },
+        
         } )
     },
     updatepass() {
@@ -226,8 +226,12 @@ export default {
         })
     },
     editarusuarioprin() {
+      console.log(this.form)
       
-      this.$inertia.put('/users/'+this.usuario.id, this.form, {
+      this.$inertia.post('/users/'+this.usuario.id, {
+        _method: 'put',
+        data: this.form
+      }, {
         onSuccess : () => {
           if(this.$page.props.flash.mensaje){
             let datos = this.$page.props.flash.mensaje
@@ -235,6 +239,9 @@ export default {
             this.$toast.add({severity:datos.type, summary: datos.title, detail:datos.message, life:5000});
           }
         },
+        onReject: (e) => {
+          console.log(e)
+        }
       })
 
     },

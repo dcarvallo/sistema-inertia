@@ -1,7 +1,7 @@
 <template>
 <app-layout>
     <div class="container-fluid">
-      <div class="flex justify-between">
+      <div class="flex flex-col justify-between sm:flex-row">
         <div class="flex items-end my-1">
           <div class="mr-2">
               <select class="block w-full bg-white border border-gray-400 hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline"  v-model="tableData.length"  @change="getAreas()">
@@ -32,7 +32,7 @@
           </legend>
           <div class="flex items-center">
             <div class="col pr-1">
-              <input  class="bg-white h-8 px-3 pr-10 rounded-full text-sm focus:outline-none w-32 md:w-64 " type="text"  v-model="tableData.search"  placeholder="Buscar" @keyup.enter="getAreas()"/>
+              <input  class="bg-white h-8 px-3 pr-10 rounded-md text-sm focus:outline-none w-32 md:w-64 " type="text"  v-model="tableData.search"  placeholder="Buscar" @keyup.enter="getAreas()"/>
             </div>
             <div class="col pl-1">
               <select class="block w-full bg-white border border-gray-400 hover:border-gray-500 px-2 pr-4 rounded shadow leading-tight focus:outline-none focus:shadow-outline" v-model="tableData.searchColumn">
@@ -54,26 +54,16 @@
           </td>
           <td style="width: 20%">{{ area.encargado }}</td>
           <td style="width: 20%">{{ area.departamento.nombre }}</td>
-          <td v-if="$page.props.permisos.includes('Ver-areas')" class="text-center">
-             <div class="flex justify-center">
-                <a class="bg-blue-600 rounded p-2 text-white" :href="'/areas/' + area.id"
+          <td  class="text-center">
+                <a v-if="$page.props.permisos.includes('Ver-areas')" class="bg-blue-500 rounded p-2 text-white mr-2" :href="'/areas/' + area.id"
               ><i class="pi pi-eye"></i
             ></a>
-             </div>
-          </td>
-          <td v-if="$page.props.permisos.includes('Editar-areas')" class="text-center">
-            <div class="flex justify-center">
-              <a class="bg-yellow-300 p-2 rounded"  :href="'/areas/' + area.id + '/edit'"
+              <a v-if="$page.props.permisos.includes('Editar-areas')" class="bg-yellow-300 p-2 rounded mr-2 text-white"  :href="`/areas/${area.id}/edit`"
               ><i class="pi pi-pencil"></i
             ></a>
-            </div>
-          </td>
-          <td v-if="$page.props.permisos.includes('Eliminar-areas')" class="text-center">
-            <div class="flex justify-center">
-              <a class=" cursor-pointer  text-white bg-red-600 p-2 rounded my-1" @click="borrar(area.id)">
+              <a v-if="$page.props.permisos.includes('Eliminar-areas')" class=" cursor-pointer  text-white bg-red-600 p-2 rounded my-1" @click="borrar(area.id)">
                 <i class="pi pi-trash"></i>
               </a>
-            </div>
           </td>
         </tr>
       </tbody>
@@ -105,20 +95,13 @@ export default {
       { label: "Descripcion", name: "descripcion" },
       { label: "Encargado", name: "encargado" },
       { label: "Departamento", name: "departamento_id" },
+      { label: "Acciones", name: "acciones" },
     ];
     var columnasPrincipales = columns.length - 1;
     columns.forEach((column) => {
       sortOrders[column.name] = -1;
     });
-    if (this.$page.props.permisos.includes('Ver-areas')) {
-      columns.push({ label: "Ver", name: "ver" });
-    }
-    if (this.$page.props.permisos.includes('Editar-areas')) {
-      columns.push({ label: "Editar", name: "editar" });
-    }
-    if (this.$page.props.permisos.includes('Eliminar-areas')) {
-      columns.push({ label: "Eliminar", name: "eliminar" });
-    }
+
     return {
       areas: [],
       showModal: false,

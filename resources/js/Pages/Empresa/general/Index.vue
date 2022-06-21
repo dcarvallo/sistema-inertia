@@ -9,6 +9,7 @@
                 </a>
                 <a v-else class="flex items-center p-2 bg-yellow-300 rounded select-none no-outline focus:shadow-outline" :href="route('empresas.edit', [empresa.id])">
                   <i class="far fa-plus-square"></i>
+                  <span> <i class="pi pi-pencil"></i></span>
                   <span class="hidden md:block pl-2"> Editar</span>
                 </a>
         </div>
@@ -24,7 +25,7 @@
             </div>
             <div class="my-3">
               <div>
-              <div class="grid grid-cols-2">
+              <div class="grid grid-cols-1 sm:grid-cols-2">
               <div class="p-2">
                 <div>
                   <p class="mb-0"> {{empresa.rubro}}</p>

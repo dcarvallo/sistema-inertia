@@ -2,8 +2,8 @@
 <app-layout>
   <form @keydown.enter.prevent>
 
-    <div class="grid grid-cols-1 md:grid-cols-2">
-      <div>
+    <div class="=place-items-center grid grid-cols-1 md:grid-cols-2">
+      <div class="place-items-center">
         <div class="form-group">
             <label class="block tracking-wide text-grey-darker font-bold mb-2">Nombre*</label>
             <input class="fappearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-2 px-4 mb-2" type="text" name="name" v-model="form.name" autofocus>
@@ -39,16 +39,13 @@
             <h5>Permisos</h5>
           </div>
           <div class="my-2">
-            <label class="bg-blue-700 text-white p-2 border border-gray-500 rounded" v-if="expand" @click="expand = !expand" :style="{cursor: 'pointer'}" @click.prevent="expandirTodos">Contraer todos</label>
-
-            <label class="bg-blue-700 text-white p-2 border border-gray-500 rounded" v-else @click="expand = !expand" :style="{cursor: 'pointer'}" @click.prevent="expandirTodos">Expandir todos</label>
+            <label class="bg-blue-700 text-white p-2 border border-gray-500 rounded cursor-pointer" @click.prevent="expandirTodos">{{expand ? 'Contraer todos' : 'Expandir'}}</label>
           </div>
           <transition name="fade">
           <div class="grid grid-cols-2 xl:grid-cols-4 2xl:grid-cols-6 gap-4">
             <div class="my-2" v-for="(categoria,index) in permisos2" :key="index">
-              <label class="bg-gray-700 text-white w-full rounded px-1" @click.prevent="funcion(index)" :style="{cursor: 'pointer'}">
-                <i v-if="nombres.includes(index)" class="pi pi-minus-circle"></i>
-                <i v-else class="pi pi-plus-circle"></i>
+              <label class="bg-gray-700 text-white w-full rounded p-1" @click.prevent="funcion(index)" :style="{cursor: 'pointer'}">
+                <i :class="nombres.includes(index) ? 'pi pi-minus-circle' : 'pi pi-plus-circle' "></i>
                 <span class=" font-bold ml-1">  {{index}} </span>
               </label>
               <div v-for="elemento in categoria" :key="elemento.id"> 
@@ -113,6 +110,7 @@ export default {
     
     expandirTodos()
     {
+      this.expand = !this.expand
       if(this.expand)
       {
         this.nombres = this.test;
